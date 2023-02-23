@@ -75,10 +75,12 @@ int main()
 	
 	encrypt = (bool)getIntInput("Choose an option:\n(0)Decrypt\n(1)Encrypt\nSelection: ");
 	if (encrypt)
-		inputString = getStringInput("Enter your string to encrypt");
+		inputString = getStringInput("Enter your string to encrypt: ");
 	else
-		inputString = getStringInput("Enter your string to decrypt");
+		inputString = getStringInput("Enter your string to decrypt: ");
 	key = getIntInput("Enter your key: ");
+	
+	printf("%s", inputString);
 
 	char outputString[strlen(inputString)];
 
