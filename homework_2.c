@@ -79,8 +79,6 @@ int main()
 	else
 		inputString = getStringInput("Enter your string to decrypt: ");
 	key = getIntInput("Enter your key: ");
-	
-	printf("%s", inputString);
 
 	char outputString[strlen(inputString)];
 
@@ -102,8 +100,8 @@ int main()
 				outputString[i] = inputString[i];
 		}
 	
-	printf("Encrypted message: %s", outputString);
+	printf("\nEncrypted message: %s\n", outputString);
 	
-	// Free all strings
+	// Free input string
 	free(inputString);
 }
