@@ -16,7 +16,7 @@ char* getStringInput(char* prompt)
 	do 
 	{
 		if(!fgets(buffer, 10, stdin)) // Read in 10 characters
-			return 1;
+			abort();
 		input = realloc(input, inputLength + strlen(buffer) + 1); // Reallaocate memory for the new charatcers read
 		strcpy(input + inputLength, buffer); // Copy the contents of buffer into the input
 		inputLength += strlen(buffer); // Add the number of characters read into the total input string length
@@ -76,7 +76,7 @@ int main()
 	
 	// Check if hash matches
 	if (memcmp(passwordHash, HASH, sizeof(HASH)/sizeof(HASH[0])))
-		abort();
+		return 1;
 	
 	// Actual Program
 	int key;
@@ -92,34 +92,22 @@ int main()
 	char outputString[strlen(inputString)];
 
 	if (encrypt)
-	{
 		// Iterate through each character in the String
 		for (int i = 0; i < strlen(inputString); i++)
 		{
 			if (inputString[i] >= 32 && inputString[i] <= 126)
-			{
 				outputString[i] = (inputString[i] - ' ' + key) % 95 + ' ';
-			}
 			else
-			{
 				outputString[i] = inputString[i];
-			}
 		}
-	}
 	else // Decrypt
-	{
 		for (int i = 0; i < strlen(inputString); i++)
 		{
 			if (inputString[i] >= 32 && inputString[i] <= 126)
-			{
 				outputString[i] = (inputString[i] - ' ' - key + 95) % 95 + ' ';
-			}
 			else
-			{
 				outputString[i] = inputString[i];
-			}
 		}
-	}
 	
 	printf("Encrypted message: %s", outputString);
 }
