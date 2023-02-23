@@ -100,7 +100,7 @@ int main()
 	
 	printf("Enter the password: ");
 	fgets(password, 50, stdin);
-	password[strcspn(password, "\n")] = 0;
+	password[strcspn(password, "\n")] = 0; // Remove new line from password
 	SHA1(password, strlen(password), passwordHash);
 	
 	// Check if hash matches
