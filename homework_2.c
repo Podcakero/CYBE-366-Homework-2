@@ -5,7 +5,9 @@
 #include <string.h>
 #include <openssl/sha.h>
 
-const char *HASH = "e4226064565f0c1e6c01e1d7506406f3b892453c"; // SHA1 Hash of Password
+const unsigned char* password = "ilovecybe366!
+const unsigned char HASH[SHA_DIGEST_LENGTH];
+SHA(password, strlen(password), HASH);
 
 long getIntInput(char* prompt)
 {
@@ -116,11 +118,8 @@ int main()
 	password[strcspn(password, "\n")] = 0; // Remove new line from password
 	printf("%s\n", password);
 	SHA1((unsigned char *)password, strlen(password), (unsigned char *)passwordHash);
-	char hash[SHA_DIGEST_LENGTH];
-	SHA1((unsigned char *)test, strlen(test), (unsigned char *)hash);
 	printf("%s\n", passwordHash);
 	printf("%s\n", HASH);
-	printf("%s\n", hash);
 	
 	for (int i=0; i<SHA_DIGEST_LENGTH; i++)
 		printf("%02x", hash[i]);
