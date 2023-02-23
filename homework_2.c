@@ -79,7 +79,10 @@ int main()
 	
 	// Check if hash matches
 	if (memcmp(passwordHash, HASH, sizeof(HASH)/sizeof(HASH[0])))
-		abort();;
+	{
+		printf("%s", "Incorrect Password");
+		abort();
+	}
 	free(password);
 	
 	// Actual Program
