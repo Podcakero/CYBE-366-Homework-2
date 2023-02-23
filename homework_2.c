@@ -39,14 +39,9 @@ int getIntInput(char* prompt)
     convertedInt = (int)strtol(input, &lastChar, 10); // Convert base-10 input to integer
 	free(input);
 		
-    if (errno == ERANGE)
+    if (errno == ERANGE) // Make sure integer is valid size
     {
         printf("Error! This number is too small or too large\n");
-        abort();
-    }
-    else if (lastChar == buffer)
-    {
-		printf("Error! No character was read\n");
         abort();
     }
     else if (*lastChar && *lastChar != '\n') // Check to see if whole string was read
