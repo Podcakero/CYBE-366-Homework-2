@@ -7,75 +7,6 @@
 
 const char *HASH = "e4226064565f0c1e6c01e1d7506406f3b892453c"; // SHA1 Hash of Password
 
-int main()
-{
-	// Check password
-	char password[50];
-	char passwordHash[500];
-	
-	printf("Enter the password: ");
-	fgets(password, 50, stdin);
-	password[strcspn(password, "\n")] = 0;
-	SHA1(password, strlen(password), passwordHash);
-	
-	// Check if hash matches
-	if (strcmp(passwordHash, HASH) != 0)
-		abort();
-	
-	// Actual Program
-	int key;
-	bool encrypt;
-	char inputString[500];
-	
-	printf("Choose an option:\n");
-	printf("(0)Decrypt\n(1)Encrypt\n");
-	printf("Selection: ");
-	
-	char* temp;
-	fgets(temp, 2, stdin);
-	encrypt = atoi(temp);
-	
-	printf("Enter your message: ");
-    if (fgets(inputString, 500, stdin))
-        inputString[strcspn(name, "\n")] = 0;
-	
-	key = getIntInput("Enter your key: ");
-
-	char outputString[strlen(inputString)];
-
-	if (encrypt)
-	{
-		// Iterate through each character in the String
-		for (int i = 0; i < strlen(inputString); i++)
-		{
-			if (inputString[i] >= 32 && inputString[i] <= 126)
-			{
-				outputString[i] = (inputString[i] - ' ' + key) % 95 + ' ';
-			}
-			else
-			{
-				outputString[i] = inputString[i];
-			}
-		}
-	}
-	else // Decrypt
-	{
-		for (int i = 0; i < strlen(inputString); i++)
-		{
-			if (inputString[i] >= 32 && inputString[i] <= 126)
-			{
-				outputString[i] = (inputString[i] - ' ' - key + 95) % 95 + ' ';
-			}
-			else
-			{
-				outputString[i] = inputString[i];
-			}
-		}
-	}
-	
-	printf("Encrypted message: %s", outputString);
-}
-
 long getIntInput(char* prompt)
 {
 	int output;
@@ -128,7 +59,7 @@ bool getBoolInput(char* prompt)
 	do
     {
         printf("%s", prompt);
-        if (!fgets(buf, 2, stdin))
+        if (!fgets(buffer, 2, stdin))
         {
             printf("Error! Failed reading input");
             return 1;
@@ -159,4 +90,73 @@ bool getBoolInput(char* prompt)
     } while (!success); // repeat until we got a valid number
 	
 	return (bool)output;
+}
+
+int main()
+{
+	// Check password
+	char password[50];
+	char passwordHash[500];
+	
+	printf("Enter the password: ");
+	fgets(password, 50, stdin);
+	password[strcspn(password, "\n")] = 0;
+	SHA1(password, strlen(password), passwordHash);
+	
+	// Check if hash matches
+	if (strcmp(passwordHash, HASH) != 0)
+		abort();
+	
+	// Actual Program
+	int key;
+	bool encrypt;
+	char inputString[500];
+	
+	printf("Choose an option:\n");
+	printf("(0)Decrypt\n(1)Encrypt\n");
+	printf("Selection: ");
+	
+	char* temp;
+	fgets(temp, 2, stdin);
+	encrypt = atoi(temp);
+	
+	printf("Enter your message: ");
+    if (fgets(inputString, 500, stdin))
+        inputString[strcspn(inputString, "\n")] = 0;
+	
+	key = getIntInput("Enter your key: ");
+
+	char outputString[strlen(inputString)];
+
+	if (encrypt)
+	{
+		// Iterate through each character in the String
+		for (int i = 0; i < strlen(inputString); i++)
+		{
+			if (inputString[i] >= 32 && inputString[i] <= 126)
+			{
+				outputString[i] = (inputString[i] - ' ' + key) % 95 + ' ';
+			}
+			else
+			{
+				outputString[i] = inputString[i];
+			}
+		}
+	}
+	else // Decrypt
+	{
+		for (int i = 0; i < strlen(inputString); i++)
+		{
+			if (inputString[i] >= 32 && inputString[i] <= 126)
+			{
+				outputString[i] = (inputString[i] - ' ' - key + 95) % 95 + ' ';
+			}
+			else
+			{
+				outputString[i] = inputString[i];
+			}
+		}
+	}
+	
+	printf("Encrypted message: %s", outputString);
 }
