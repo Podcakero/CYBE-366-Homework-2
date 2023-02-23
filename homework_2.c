@@ -79,8 +79,9 @@ int main()
 		return 1;
 	
 	// Actual Program
-	int key;
 	bool encrypt;
+	char* inputString;
+	int key;
 	
 	encrypt = (bool)getIntInput("Choose an option:\n(0)Decrypt\n(1)Encrypt\nSelection: ");
 	if (encrypt)
