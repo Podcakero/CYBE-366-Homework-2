@@ -77,8 +77,10 @@ int main()
 	file = (bool)getIntInput("Choose an option:\n(0)Input Text\n(1)From File\nSelection:");
 	encrypt = (bool)getIntInput("Choose an option:\n(0)Decrypt\n(1)Encrypt\nSelection: ");
 	if (file) // File input
+	{
 		filePath = getStringInput("Enter the file path: ", stdin);
 		inputString = getStringInput("", filePath);
+	}
 	else
 		inputString = getStringInput("Enter your string: ", stdin);
 	key = getIntInput("Enter your key: ");
