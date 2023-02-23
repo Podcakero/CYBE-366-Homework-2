@@ -95,20 +95,20 @@ bool getBoolInput(char* prompt)
 int main()
 {
 	// Check password
-	char temp[50];
+	char passwordTemp[50];
 	char passwordHashTemp[1024]; // 1KiB for SHA1 Hash
 	unsigned char* passwordHash = passwordHashTemp;
 
 	printf("Enter the password: ");
-	if (!fgets(temp, 50, stdin))
+	if (!fgets(passwordTemp, 50, stdin))
 	{
 		return 1;
 	}
 	printf("%s", "THis is working");
-	printf("%s", temp);
-	temp[strcspn(temp, "\n")] = 0; // Remove new line from password
-	printf("%s", temp);
-	const unsigned char* password = temp;
+	printf("%s", passwordTemp);
+	passwordTemp[strcspn(passwordTemp, "\n")] = 0; // Remove new line from password
+	printf("%s", passwordTemp);
+	const unsigned char* password = passwordTemp;
 	MD5(password, strlen(password), passwordHash);
 	printf("%s", passwordHash);
 	
@@ -120,7 +120,7 @@ int main()
 	
 	// Actual Program
 	int key;
-	bool encrypt;
+	int encrypt;
 	char inputString[1024]; // Limit to 1KiB
 	
 	printf("Choose an option:\n");
