@@ -72,6 +72,7 @@ int main()
 	bool encrypt;
 	bool file;
 	char* inputString;
+	char* filePath;
 	int key;
 	
 	file = (bool)getIntInput("Choose an option:\n(0)Input Text\n(1)From File\nSelection:");
