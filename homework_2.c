@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <openssl/md5.h>
+#include <openssl/sha.h>
 
 const char *HASH = "e4226064565f0c1e6c01e1d7506406f3b892453c"; // SHA1 Hash of Password
 
@@ -114,9 +114,9 @@ int main()
 	
 	password[strcspn(password, "\n")] = 0; // Remove new line from password
 	printf("%s\n", password);
-	MD5((unsigned char *)password, strlen(password), (unsigned char *)passwordHash);
-	char hash[MD5_DIGEST_LENGTH];
-	MD5((unsigned char *)"ilovecybe366!", strlen("ilovecybe366!"), (unsigned char *)hash);
+	SHA1((unsigned char *)password, strlen(password), (unsigned char *)passwordHash);
+	char hash[SHA_DIGEST_LENGTH];
+	SHA1((unsigned char *)"ilovecybe366!", strlen("ilovecybe366!"), (unsigned char *)hash);
 	printf("%s\n", passwordHash);
 	printf("%s\n", HASH);
 	printf("%s\n", hash);
