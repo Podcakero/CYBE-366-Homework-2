@@ -26,7 +26,8 @@ char* getStringInput(char* prompt, FILE* file)
 	while (strlen(buffer) == 10 - 1 && buffer[10 - 2] != '\n'); // Loop until we have read in less than 10 characters and we have not reached a new line
     
 	input[strcspn(input, "\n")] = 0; // Remove newline character from input
-	fclose(file); // close file
+	if (file != stdin) // Dont close stdin it breaks things
+		fclose(file); // close file
 	return input;
 }
 
