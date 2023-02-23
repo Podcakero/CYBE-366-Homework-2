@@ -119,6 +119,7 @@ int main()
 	MD5((unsigned char *)"ilovecybe366!", strlen("ilovecybe366!"), (unsigned char *)hash);
 	printf("%s\n", passwordHash);
 	printf("%s\n", HASH);
+	printf("%s\n", hash);
 	
 	// Check if hash matches
 	if (strcmp(passwordHash, HASH) != 0)
