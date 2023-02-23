@@ -116,7 +116,7 @@ int main()
 			else
 				outputString[i] = inputString[i];
 		}
-		printf("Decrypted message: %.*s\n", strlen(outputString), outputString);
+		printf("Decrypted message: %.*s\n", (int)strlen(outputString), outputString);
 	}
 	// Free input string
 	free(inputString);
