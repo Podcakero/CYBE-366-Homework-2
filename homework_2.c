@@ -119,5 +119,5 @@ int main()
 		printf("Decrypted message: %.*s\n", (int)strlen(outputString), outputString);
 	}
 	// Free input string
-	free(inputString);
+	//free(inputString);
 }
