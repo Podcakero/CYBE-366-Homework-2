@@ -7,7 +7,7 @@
 
 const unsigned char* password = "ilovecybe366!";
 const unsigned char HASH[SHA_DIGEST_LENGTH];
-SHA(password, strlen(password), HASH);
+SHA1(password, strlen(password), HASH);
 
 long getIntInput(char* prompt)
 {
@@ -119,10 +119,6 @@ int main()
 	SHA1((unsigned char *)password, strlen(password), (unsigned char *)passwordHash);
 	printf("%s\n", passwordHash);
 	printf("%s\n", HASH);
-	
-	for (int i=0; i<SHA_DIGEST_LENGTH; i++)
-		printf("%02x", hash[i]);
-	putchar('\n');
 	
 	// Check if hash matches
 	if (strcmp(passwordHash, HASH) != 0)
