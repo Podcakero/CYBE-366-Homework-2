@@ -5,7 +5,28 @@
 #include <string.h>
 #include <openssl/sha.h>
 
-long getIntInput(char* prompt)
+char* getStringInput(char* prompt)
+{
+	char* input;
+	char buffer[10];
+	size_t inputLength = 0;
+	
+	printf("%s", prompt);
+	
+	do 
+	{
+		if(!fgets(buffer, 10, stdin)) // Read in 10 characters
+			return 1;
+		input = realloc(input, inputLength + strlen(buffer) + 1); // Reallaocate memory for the new charatcers read
+		strcpy(input + inputLength, buffer); // Copy the contents of buffer into the input
+		inputLength += strlen(buffer); // Add the number of characters read into the total input string length
+	} 
+	while (strlen(buffer) == 10 - 1 && buffer[10 - 2] != '\n'); // Make sure we don't read in more than 10 characters, and make sure we haven't reached the end of a line
+    
+	return input;
+}
+
+int getIntInput(char* prompt)
 {
 	int convertedInt;
 	bool success;
@@ -39,27 +60,6 @@ long getIntInput(char* prompt)
 	while (!success);
 	
 	return convertedInt;
-}
-
-char* getStringInput(char* prompt)
-{
-	char* input;
-	char buffer[10];
-	size_t inputLength = 0;
-	
-	printf("%s", prompt);
-	
-	do 
-	{
-		if(!fgets(buffer, 10, stdin)) // Read in 10 characters
-			return 1;
-		input = realloc(input, inputLength + strlen(buffer) + 1); // Reallaocate memory for the new charatcers read
-		strcpy(input + inputLength, buffer); // Copy the contents of buffer into the input
-		inputLength += strlen(buffer); // Add the number of characters read into the total input string length
-	} 
-	while (strlen(buffer) == 10 - 1 && buffer[10 - 2] != '\n'); // Make sure we don't read in more than 10 characters, and make sure we haven't reached the end of a line
-    
-	return input;
 }
 
 int main()
