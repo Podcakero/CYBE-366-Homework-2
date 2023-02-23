@@ -110,7 +110,7 @@ int main()
 	if (fgets(password, 50, stdin))
 	{
 		password[strcspn(password, "\n")] = 0; // Remove new line from password
-		printf("%s", password);
+		printf("%s\n", password);
 		MD5(password, strlen(password), passwordHash);
 		printf("%s", passwordHash);
 	}
