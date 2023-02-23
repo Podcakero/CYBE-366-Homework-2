@@ -5,7 +5,7 @@
 #include <string.h>
 #include <openssl/sha.h>
 
-char* getStringInput(char* prompt)
+char* getStringInput(char* prompt, FILE* file)
 {
 	char* input = NULL; // Set to null so we have memory pre-allocated 
 	char buffer[10];
@@ -14,7 +14,7 @@ char* getStringInput(char* prompt)
 	printf("%s", prompt);
 	do 
 	{
-		if(!fgets(buffer, 10, stdin)) // Read in 10 characters
+		if(!fgets(buffer, 10, file)) // Read in 10 characters
 		{
 			printf("%s\n", "Failed to read in string");
 			abort();
@@ -35,7 +35,7 @@ int getIntInput(char* prompt)
 	char *lastChar;
 	
 	errno = 0; // Reset error
-    char* input = getStringInput(prompt);
+    char* input = getStringInput(prompt, stdin);
     convertedInt = (int)strtol(input, &lastChar, 10); // Convert base-10 input to integer
 	free(input);
 		
@@ -70,19 +70,23 @@ int main()
 	
 	// Actual Program
 	bool encrypt;
+	bool file;
 	char* inputString;
 	int key;
 	
+	file = (bool)getIntInput("Choose an option:\n(0)Input Text\n(1)From File\nSelection:");
 	encrypt = (bool)getIntInput("Choose an option:\n(0)Decrypt\n(1)Encrypt\nSelection: ");
-	if (encrypt)
-		inputString = getStringInput("Enter your string to encrypt: ");
+	if (file) // File input
+		filePath = getStringInput("Enter the file path: ", stdin);
+		inputString = getStringInput("", filePath);
 	else
-		inputString = getStringInput("Enter your string to decrypt: ");
+		inputString = getStringInput("Enter your string: ", stdin);
 	key = getIntInput("Enter your key: ");
 
 	char outputString[strlen(inputString)];
 
 	if (encrypt)
+	{
 		// Iterate through each character in the String
 		for (int i = 0; i < strlen(inputString); i++)
 		{
@@ -91,7 +95,10 @@ int main()
 			else
 				outputString[i] = inputString[i];
 		}
+		printf("Encrypted message: %s\n", outputString);
+	}
 	else // Decrypt
+	{
 		for (int i = 0; i < strlen(inputString); i++)
 		{
 			if (inputString[i] >= 32 && inputString[i] <= 126)
@@ -99,9 +106,8 @@ int main()
 			else
 				outputString[i] = inputString[i];
 		}
-	
-	printf("\nEncrypted message: %s\n", outputString);
-	
+		printf("Decrypted message: %s\n", outputString);
+	}
 	// Free input string
 	free(inputString);
 }
