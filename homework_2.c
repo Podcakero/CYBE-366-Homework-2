@@ -26,6 +26,7 @@ char* getStringInput(char* prompt, FILE* file)
 	while (strlen(buffer) == 10 - 1 && buffer[10 - 2] != '\n'); // Loop until we have read in less than 10 characters and we have not reached a new line
     
 	input[strcspn(input, "\n")] = 0; // Remove newline character from input
+	fclose(file); // close file
 	return input;
 }
 
@@ -70,14 +71,14 @@ int main()
 	
 	// Actual Program
 	bool encrypt;
-	bool file;
+	bool inputType;
 	char* inputString;
 	char* filePath;
 	int key;
 	
-	file = (bool)getIntInput("Choose an option:\n(0)Input Text\n(1)From File\nSelection:");
+	inputType = (bool)getIntInput("Choose an option:\n(0)Input Text\n(1)From File\nSelection:");
 	encrypt = (bool)getIntInput("Choose an option:\n(0)Decrypt\n(1)Encrypt\nSelection: ");
-	if (file) // File input
+	if (inputType) // File input
 	{
 		filePath = getStringInput("Enter the file path: ", stdin);
 		file = fopen(filePath, "r");
