@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -Wall -lssl -lcrypto
+CFLAGS = -g -Wall -lssl -lcrypto -L/usr/lib
 RM = rm -f
 
 default: all
