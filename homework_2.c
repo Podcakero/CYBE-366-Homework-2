@@ -44,11 +44,6 @@ int getIntInput(char* prompt)
         printf("Error! This number is too small or too large\n");
         abort();
     }
-    else if (*lastChar && *lastChar != '\n') // Check to see if whole string was read
-    {
-		printf("Error! Whole string not converted to int\n");
-        abort();
-    }
 	
 	return convertedInt;
 }
