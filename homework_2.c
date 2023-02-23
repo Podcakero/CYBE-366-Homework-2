@@ -7,87 +7,59 @@
 
 long getIntInput(char* prompt)
 {
-	int output;
+	int convertedInt;
+	bool success;
 	char buffer[10]; 
-	int success;
 	
 	do
     {
+		errno = 0; // Reset error
+		char *lastChar;
+		
         printf("%s", prompt);
-        if (!fgets(buffer, 10, stdin))
-        {
-            printf("Error! Failed reading input");
-            return 1;
-        }
-
-        
-        char *endPointer;
-        errno = 0; 
-        output = (int)strtol(buffer, &endPointer, 10);
+        input = getStringInput();
+        convertedInt = (int)strtol(input, &lastChar, 10); // Convert base-10 input to integer
+		
         if (errno == ERANGE)
         {
             printf("Error! This number is too small or too large\n");
-            success = 0;
+            success = false;
         }
-        else if (endPointer == buffer)
+        else if (lastChar == buffer)
         {
 			printf("Error! No character was read\n");
-            success = 0;
+            success = false;
         }
-        else if (*endPointer && *endPointer != '\n')
+        else if (*lastChar && *lastChar != '\n') // Check to see if whole string was read
         {
 			printf("Error! Whole string not converted to int\n");
-            success = 0;
+            success = false;
         }
         else
-        {
-            success = 1;
-        }
-    } while (!success);
+            success = true;
+    } 
+	while (!success);
 	
-	return output;
+	return convertedInt;
 }
 
-bool getBoolInput(char* prompt)
+char* getStringInput()
 {
-	int output;
-	char buffer[2];
-	int success;
+	char* input;
+	char buffer[10];
+	size_t inputLength = 0;
 	
-	do
-    {
-        printf("%s", prompt);
-        if (!fgets(buffer, 2, stdin))
-        {
-            printf("Error! Failed reading input");
-            return 1;
-        }
-
-        char *endPointer;
-        errno = 0;
-        output = (int)strtol(buffer, &endPointer, 10);
-        if (errno == ERANGE)
-        {
-            printf("Error! This number is too small or too large\n");
-            success = 0;
-        }
-        else if (endPointer == buffer)
-        {
-			printf("Error! No character was read\n");
-            success = 0;
-        }
-        else if (*endPointer && *endPointer != '\n')
-        {
-			printf("Error! Whole string not converted to int\n");
-            success = 0;
-        }
-        else
-        {
-            success = 1;
-        }
-    } while (!success); // repeat until we got a valid number
-	
-	return (bool)output;
+	do 
+	{
+		if(!fgets(buffer, 10, stdin)) // Read in 10 characters
+			return 1;
+		input = realloc(input, inputLength + strlen(buffer) + 1); // Reallaocate memory for the new charatcers read
+		strcpy(input + inputLength, buffer); // Copy the contents of buffer into the input
+		inputLength += strlen(buffer); // Add the number of characters read into the total input string length
+	} 
+	while (strlen(buffer) == 10 - 1 && buffer[10 - 2] != '\n'); // Make sure we don't read in more than 10 characters, and make sure we haven't reached the end of a line
+    
+	return input;
 }
 
 int main()
@@ -98,20 +70,12 @@ int main()
 	SHA1((unsigned char *)PASSWORD, strlen(PASSWORD), (unsigned char *)HASH);
 	
 	// Check password
-	char password[50];
-	char passwordHash[1024]; // 1KiB for SHA1 Hash
+	char passwordHash[SHA_DIGEST_LENGTH]; 
 
 	printf("Enter the password: ");
-	if (!fgets(password, 50, stdin))
-	{
-		return 1;
-	}
-	
+	char* password = getStringInput(); // Read in from stdin in chunks of 256 bytes
 	password[strcspn(password, "\n")] = 0; // Remove new line from password
-	printf("%s\n", password);
 	SHA1((unsigned char *)password, strlen(password), (unsigned char *)passwordHash);
-	printf("%s\n", passwordHash);
-	printf("%s\n", HASH);
 	
 	// Check if hash matches
 	if (memcmp(passwordHash, HASH, sizeof(HASH)/sizeof(HASH[0])))
@@ -121,16 +85,9 @@ int main()
 	
 	// Actual Program
 	int key;
-	int encrypt;
-	char inputString[1024]; // Limit to 1KiB
+	bool encrypt;
 	
-	printf("Choose an option:\n");
-	printf("(0)Decrypt\n(1)Encrypt\n");
-	printf("Selection: ");
-	
-	char temp[2];
-	fgets(temp, 2, stdin);
-	encrypt = atoi(temp);
+	encrypt = (bool)getIntInput("Choose an option:\n(0)Decrypt\n(1)Encrypt\nSelection: ");
 	
 	printf("Enter your message: ");
     if (!fgets(inputString, 500, stdin))
