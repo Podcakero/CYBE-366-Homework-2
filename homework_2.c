@@ -95,7 +95,7 @@ bool getBoolInput(char* prompt)
 int main()
 {
 	// Check password
-	const unsigned char* password;
+	unsigned char* password;
 	unsigned char* passwordHash;
 	
 	printf("Enter the password: ");
