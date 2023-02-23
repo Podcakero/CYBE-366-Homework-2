@@ -15,9 +15,7 @@ long getIntInput(char* prompt)
     {
 		errno = 0; // Reset error
 		char *lastChar;
-		
-        printf("%s", prompt);
-        input = getStringInput();
+        char* input = getStringInput(prompt);
         convertedInt = (int)strtol(input, &lastChar, 10); // Convert base-10 input to integer
 		
         if (errno == ERANGE)
@@ -43,11 +41,13 @@ long getIntInput(char* prompt)
 	return convertedInt;
 }
 
-char* getStringInput()
+char* getStringInput(char* prompt)
 {
 	char* input;
 	char buffer[10];
 	size_t inputLength = 0;
+	
+	printf("%s", prompt);
 	
 	do 
 	{
@@ -71,31 +71,22 @@ int main()
 	
 	// Check password
 	char passwordHash[SHA_DIGEST_LENGTH]; 
-
-	printf("Enter the password: ");
-	char* password = getStringInput(); // Read in from stdin in chunks of 256 bytes
-	password[strcspn(password, "\n")] = 0; // Remove new line from password
-	SHA1((unsigned char *)password, strlen(password), (unsigned char *)passwordHash);
+	char* password = getStringInput("Enter the password: "); // Read in password
+	SHA1((unsigned char *)password, strlen(password), (unsigned char *)passwordHash); // Hash the input
 	
 	// Check if hash matches
 	if (memcmp(passwordHash, HASH, sizeof(HASH)/sizeof(HASH[0])))
-	{
 		abort();
-	}
 	
 	// Actual Program
 	int key;
 	bool encrypt;
 	
 	encrypt = (bool)getIntInput("Choose an option:\n(0)Decrypt\n(1)Encrypt\nSelection: ");
-	
-	printf("Enter your message: ");
-    if (!fgets(inputString, 500, stdin))
-	{
-        return 1;
-	}
-	inputString[strcspn(inputString, "\n")] = 0;
-	
+	if (encrypt)
+		inputString = getStringInput("Enter your string to encrypt");
+	else
+		inputString = getStringInput("Enter your string to decrypt");
 	key = getIntInput("Enter your key: ");
 
 	char outputString[strlen(inputString)];
