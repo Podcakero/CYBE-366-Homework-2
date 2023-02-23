@@ -21,8 +21,9 @@ char* getStringInput(char* prompt)
 		strcpy(input + inputLength, buffer); // Copy the contents of buffer into the input
 		inputLength += strlen(buffer); // Add the number of characters read into the total input string length
 	} 
-	while (strlen(buffer) == 10 - 1 && buffer[10 - 2] != '\n'); // Make sure we don't read in more than 10 characters, and make sure we haven't reached the end of a line
+	while (strlen(buffer) == 10 - 1 && buffer[10 - 2] != '\n'); // Loop until we have read in less than 10 characters and we have not reached a new line
     
+	input[strcspn(input, "\n")] = 0; // Remove newline character from input
 	return input;
 }
 
