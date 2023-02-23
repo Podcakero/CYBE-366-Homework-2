@@ -111,7 +111,9 @@ int main()
 	
 	// Check if hash matches
 	if (strcmp(passwordHash, HASH) != 0)
+	{
 		abort();
+	}
 	
 	// Actual Program
 	int key;
@@ -127,8 +129,11 @@ int main()
 	encrypt = atoi(temp);
 	
 	printf("Enter your message: ");
-    if (fgets(inputString, 500, stdin))
-        inputString[strcspn(inputString, "\n")] = 0;
+    if (!fgets(inputString, 500, stdin))
+	{
+        return 1;
+	}
+	inputString[strcspn(inputString, "\n")] = 0;
 	
 	key = getIntInput("Enter your key: ");
 
