@@ -78,7 +78,7 @@ int main()
 	char* inputString;
 	int key;
 	
-	inputType = (bool)getIntInput("Choose an option:\n(0)Input Text\n(1)From File\nSelection:");
+	inputType = (bool)getIntInput("Choose an option:\n(0)Input Text\n(1)From File\nSelection: ");
 	encrypt = (bool)getIntInput("Choose an option:\n(0)Decrypt\n(1)Encrypt\nSelection: ");
 	if (inputType) // File input
 	{
@@ -91,6 +91,8 @@ int main()
 	key = getIntInput("Enter your key: ");
 
 	char outputString[strlen(inputString)];
+	
+	printf("%s\n", inputString);
 
 	if (encrypt)
 	{
