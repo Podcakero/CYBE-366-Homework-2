@@ -7,7 +7,7 @@
 
 char* getStringInput(char* prompt)
 {
-	char* input;
+	char* input = NULL; // Set to null so we have memory pre-allocated 
 	char buffer[10];
 	size_t inputLength = 0;
 	
@@ -38,6 +38,7 @@ int getIntInput(char* prompt)
 		char *lastChar;
         char* input = getStringInput(prompt);
         convertedInt = (int)strtol(input, &lastChar, 10); // Convert base-10 input to integer
+		free(input);
 		
         if (errno == ERANGE)
         {
@@ -76,7 +77,8 @@ int main()
 	
 	// Check if hash matches
 	if (memcmp(passwordHash, HASH, sizeof(HASH)/sizeof(HASH[0])))
-		return 1;
+		abort();;
+	free(password);
 	
 	// Actual Program
 	bool encrypt;
@@ -111,4 +113,7 @@ int main()
 		}
 	
 	printf("Encrypted message: %s", outputString);
+	
+	// Free all strings
+	free(inputString);
 }
