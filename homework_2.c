@@ -107,13 +107,16 @@ int main()
 	char passwordHash[1024]; // 1KiB for SHA1 Hash
 
 	printf("Enter the password: ");
-	if (fgets(password, 50, stdin))
+	if (!fgets(password, 50, stdin))
 	{
-		password[strcspn(password, "\n")] = 0; // Remove new line from password
-		printf("%s\n", password);
-		MD5(password, strlen(password), passwordHash);
-		printf("%s\n", passwordHash);
+		return 1;
 	}
+	
+	password[strcspn(password, "\n")] = 0; // Remove new line from password
+	printf("%s\n", password);
+	MD5(password, strlen(password), passwordHash);
+	printf("%s\n", passwordHash);
+	printf("%s\n", HASH);
 	
 	// Check if hash matches
 	if (strcmp(passwordHash, HASH) != 0)
