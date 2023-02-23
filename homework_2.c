@@ -114,7 +114,7 @@ int main()
 	
 	password[strcspn(password, "\n")] = 0; // Remove new line from password
 	printf("%s\n", password);
-	MD5(password, strlen(password), passwordHash);
+	MD5((unsigned char *)password, strlen(password), (unsigned char *)passwordHash);
 	printf("%s\n", passwordHash);
 	printf("%s\n", HASH);
 	
