@@ -96,7 +96,7 @@ int main()
 {
 	// Check password
 	unsigned char password[50];
-	unsigned char* passwordHash;
+	unsigned char passwordHash[1024]; // 1KiB for SHA1 Hash
 	
 	printf("Enter the password: ");
 	if (!fgets(password, 50, stdin))
@@ -106,7 +106,6 @@ int main()
 	printf("%s", password);
 	password[strcspn(password, "\n")] = 0; // Remove new line from password
 	SHA1(password, strlen(password), passwordHash);
-	
 	printf("%s", passwordHash);
 	
 	// Check if hash matches
