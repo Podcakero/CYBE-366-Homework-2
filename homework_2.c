@@ -96,13 +96,11 @@ int main()
 {
 	// Check password
 	const unsigned char* password;
-	char* temp;
 	unsigned char* passwordHash;
 	
 	printf("Enter the password: ");
-	fgets(temp, 50, stdin);
-	temp[strcspn(temp, "\n")] = 0;
-	password = temp;
+	fgets(password, 50, stdin);
+	password[strcspn(password, "\n")] = 0;
 	SHA1(password, strlen(password), passwordHash);
 	
 	// Check if hash matches
