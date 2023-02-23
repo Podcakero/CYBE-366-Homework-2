@@ -80,7 +80,8 @@ int main()
 	if (file) // File input
 	{
 		filePath = getStringInput("Enter the file path: ", stdin);
-		inputString = getStringInput("", filePath);
+		file = fopen(filePath, "r");
+		inputString = getStringInput("", file);
 	}
 	else
 		inputString = getStringInput("Enter your string: ", stdin);
