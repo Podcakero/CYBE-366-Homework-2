@@ -5,10 +5,6 @@
 #include <string.h>
 #include <openssl/sha.h>
 
-const char* PASSWORD = "ilovecybe366!";
-const unsigned char HASH[SHA_DIGEST_LENGTH];
-SHA1((unsigned char *)PASSWORD, strlen(PASSWORD), (unsigned char *)HASH);
-
 long getIntInput(char* prompt)
 {
 	int output;
@@ -96,13 +92,10 @@ bool getBoolInput(char* prompt)
 
 int main()
 {
-	char name[40];
-    printf("What's your name? ");
-    if (fgets(name, 40, stdin))
-    {
-        name[strcspn(name, "\n")] = 0;
-        printf("Hello %s!\n", name);
-    }
+	// Hash the password because apparently i am dumb
+	const char* PASSWORD = "ilovecybe366!";
+	const unsigned char HASH[SHA_DIGEST_LENGTH];
+	SHA1((unsigned char *)PASSWORD, strlen(PASSWORD), (unsigned char *)HASH);
 	
 	// Check password
 	char password[50];
