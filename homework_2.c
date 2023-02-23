@@ -5,9 +5,9 @@
 #include <string.h>
 #include <openssl/sha.h>
 
-const unsigned char* password = "ilovecybe366!";
+const char* PASSWORD = "ilovecybe366!";
 const unsigned char HASH[SHA_DIGEST_LENGTH];
-SHA1(password, strlen(password), HASH);
+SHA1((unsigned char *)PASSWORD, strlen(PASSWORD), (unsigned char *)HASH);
 
 long getIntInput(char* prompt)
 {
