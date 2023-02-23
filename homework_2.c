@@ -95,8 +95,8 @@ bool getBoolInput(char* prompt)
 int main()
 {
 	// Check password
-	char* password;
-	char* passwordHash;
+	unsigned char* password;
+	unsigned char* passwordHash;
 	
 	printf("Enter the password: ");
 	fgets(password, 50, stdin);
