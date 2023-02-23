@@ -114,7 +114,7 @@ int main()
 	printf("%s\n", HASH);
 	
 	// Check if hash matches
-	if (memcmp(passwordHash, HASH, sizeof(HASH)/sizeof(HASH[0]))
+	if (memcmp(passwordHash, HASH, sizeof(HASH)/sizeof(HASH[0])))
 	{
 		abort();
 	}
