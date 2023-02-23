@@ -93,6 +93,7 @@ int main()
 	char outputString[strlen(inputString)];
 	
 	printf("%s\n", inputString);
+	printf("%d\n", strlen(inputString));
 
 	if (encrypt)
 	{
