@@ -104,7 +104,6 @@ int main()
 	{
 		return 1;
 	}
-	printf("%s", "THis is working");
 	printf("%s", passwordTemp);
 	passwordTemp[strcspn(passwordTemp, "\n")] = 0; // Remove new line from password
 	printf("%s", passwordTemp);
