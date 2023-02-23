@@ -57,7 +57,7 @@ int main()
 	
 	// Check password
 	char passwordHash[SHA_DIGEST_LENGTH]; 
-	char* password = getStringInput("Enter the password: "); // Read in password
+	char* password = getStringInput("Enter the password: ", stdin); // Read in password
 	SHA1((unsigned char *)password, strlen(password), (unsigned char *)passwordHash); // Hash the input
 	
 	// Check if hash matches
