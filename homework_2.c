@@ -91,9 +91,6 @@ int main()
 	key = getIntInput("Enter your key: ");
 
 	char outputString[strlen(inputString)];
-	
-	printf("%s\n", inputString);
-	printf("%d\n", strlen(inputString));
 
 	if (encrypt)
 	{
@@ -116,8 +113,8 @@ int main()
 			else
 				outputString[i] = inputString[i];
 		}
-		printf("Decrypted message: %.*s\n", (int)strlen(outputString), outputString);
+		printf("Decrypted message: %s\n", outputString);
 	}
 	// Free input string
-	//free(inputString);
+	free(inputString);
 }
