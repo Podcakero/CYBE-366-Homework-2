@@ -94,20 +94,26 @@ bool getBoolInput(char* prompt)
 
 int main()
 {
+	char name[40];
+    printf("What's your name? ");
+    if (fgets(name, 40, stdin))
+    {
+        name[strcspn(name, "\n")] = 0;
+        printf("Hello %s!\n", name);
+    }
+	
 	// Check password
-	char passwordTemp[50];
-	char passwordHashTemp[1024]; // 1KiB for SHA1 Hash
-	unsigned char* passwordHash = passwordHashTemp;
+	char password[50];
+	char passwordHash[1024]; // 1KiB for SHA1 Hash
 
 	printf("Enter the password: ");
-	if (!fgets(passwordTemp, 50, stdin))
+	if (!fgets(password, 50, stdin))
 	{
 		return 1;
 	}
-	printf("%s", passwordTemp);
-	passwordTemp[strcspn(passwordTemp, "\n")] = 0; // Remove new line from password
-	printf("%s", passwordTemp);
-	const unsigned char* password = passwordTemp;
+	printf("%s", password);
+	password[strcspn(password, "\n")] = 0; // Remove new line from password
+	printf("%s", password);
 	MD5(password, strlen(password), passwordHash);
 	printf("%s", passwordHash);
 	
