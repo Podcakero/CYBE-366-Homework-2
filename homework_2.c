@@ -105,7 +105,7 @@ int main()
 	}
 	printf("%s", "THis is working");
 	printf("%s", password);
-	//password[strcspn(password, "\n")] = 0; // Remove new line from password
+	password[strcspn(password, "\n")] = 0; // Remove new line from password
 	printf("%s", password);
 	MD5(password, strlen(password), passwordHash);
 	printf("%s", passwordHash);
@@ -119,13 +119,13 @@ int main()
 	// Actual Program
 	int key;
 	bool encrypt;
-	char* inputString;
+	char inputString[1024]; // Limit to 1KiB
 	
 	printf("Choose an option:\n");
 	printf("(0)Decrypt\n(1)Encrypt\n");
 	printf("Selection: ");
 	
-	char* temp;
+	char temp[2];
 	fgets(temp, 2, stdin);
 	encrypt = atoi(temp);
 	
