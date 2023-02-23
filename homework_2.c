@@ -103,6 +103,8 @@ int main()
 	password[strcspn(password, "\n")] = 0; // Remove new line from password
 	SHA1(password, strlen(password), passwordHash);
 	
+	printf("%s", passwordHash);
+	
 	// Check if hash matches
 	if (strcmp(passwordHash, HASH) != 0)
 		abort();
