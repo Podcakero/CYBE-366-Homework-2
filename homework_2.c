@@ -95,8 +95,8 @@ bool getBoolInput(char* prompt)
 int main()
 {
 	// Check password
-	unsigned char password[50];
-	unsigned char passwordHash[1024]; // 1KiB for SHA1 Hash
+	char password[50];
+	char passwordHash[1024]; // 1KiB for SHA1 Hash
 	
 	printf("Enter the password: ");
 	if (!fgets(password, 50, stdin))
