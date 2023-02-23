@@ -70,10 +70,11 @@ int main()
 	free(password);
 	
 	// Actual Program
-	bool encrypt;
 	bool inputType;
-	char* inputString;
+	bool encrypt;
 	char* filePath;
+	FILE* file;
+	char* inputString;
 	int key;
 	
 	inputType = (bool)getIntInput("Choose an option:\n(0)Input Text\n(1)From File\nSelection:");
@@ -81,7 +82,7 @@ int main()
 	if (inputType) // File input
 	{
 		filePath = getStringInput("Enter the file path: ", stdin);
-		file = fopen(filePath, "r");
+		FILE* file = fopen(filePath, "r");
 		inputString = getStringInput("", file);
 	}
 	else
