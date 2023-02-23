@@ -5,7 +5,7 @@
 #include <string.h>
 #include <openssl/sha.h>
 
-const unsigned char* password = "ilovecybe366!
+const unsigned char* password = "ilovecybe366!";
 const unsigned char HASH[SHA_DIGEST_LENGTH];
 SHA(password, strlen(password), HASH);
 
@@ -107,7 +107,6 @@ int main()
 	// Check password
 	char password[50];
 	char passwordHash[1024]; // 1KiB for SHA1 Hash
-	char* test = "ilovecybe366!";
 
 	printf("Enter the password: ");
 	if (!fgets(password, 50, stdin))
