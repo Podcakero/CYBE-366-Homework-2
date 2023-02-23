@@ -75,6 +75,8 @@ int main()
 	char* password = getStringInput("Enter the password: "); // Read in password
 	SHA1((unsigned char *)password, strlen(password), (unsigned char *)passwordHash); // Hash the input
 	
+	printf("%s", password);
+	
 	// Check if hash matches
 	if (memcmp(passwordHash, HASH, sizeof(HASH)/sizeof(HASH[0])))
 		abort();;
