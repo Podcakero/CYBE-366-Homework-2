@@ -122,7 +122,7 @@ int main()
 	printf("%s\n", HASH);
 	printf("%s\n", hash);
 	
-	for (i=0; i<SHA_DIGEST_LENGTH; i++)
+	for (int i=0; i<SHA_DIGEST_LENGTH; i++)
 		printf("%02x", hash[i]);
 	putchar('\n');
 	
