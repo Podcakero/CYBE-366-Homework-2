@@ -12,11 +12,13 @@ char* getStringInput(char* prompt)
 	size_t inputLength = 0;
 	
 	printf("%s", prompt);
-	
 	do 
 	{
 		if(!fgets(buffer, 10, stdin)) // Read in 10 characters
+		{
+			printf("%s\n", "Failed to read in string");
 			abort();
+		}
 		input = realloc(input, inputLength + strlen(buffer) + 1); // Reallaocate memory for the new charatcers read
 		strcpy(input + inputLength, buffer); // Copy the contents of buffer into the input
 		inputLength += strlen(buffer); // Add the number of characters read into the total input string length
@@ -30,36 +32,28 @@ char* getStringInput(char* prompt)
 int getIntInput(char* prompt)
 {
 	int convertedInt;
-	bool success;
-	char buffer[10]; 
+	char *lastChar;
 	
-	do
-    {
-		errno = 0; // Reset error
-		char *lastChar;
-        char* input = getStringInput(prompt);
-        convertedInt = (int)strtol(input, &lastChar, 10); // Convert base-10 input to integer
-		free(input);
+	errno = 0; // Reset error
+    char* input = getStringInput(prompt);
+    convertedInt = (int)strtol(input, &lastChar, 10); // Convert base-10 input to integer
+	free(input);
 		
-        if (errno == ERANGE)
-        {
-            printf("Error! This number is too small or too large\n");
-            success = false;
-        }
-        else if (lastChar == buffer)
-        {
-			printf("Error! No character was read\n");
-            success = false;
-        }
-        else if (*lastChar && *lastChar != '\n') // Check to see if whole string was read
-        {
-			printf("Error! Whole string not converted to int\n");
-            success = false;
-        }
-        else
-            success = true;
-    } 
-	while (!success);
+    if (errno == ERANGE)
+    {
+        printf("Error! This number is too small or too large\n");
+        abort();
+    }
+    else if (lastChar == buffer)
+    {
+		printf("Error! No character was read\n");
+        abort();
+    }
+    else if (*lastChar && *lastChar != '\n') // Check to see if whole string was read
+    {
+		printf("Error! Whole string not converted to int\n");
+        abort();
+    }
 	
 	return convertedInt;
 }
@@ -75,8 +69,6 @@ int main()
 	char passwordHash[SHA_DIGEST_LENGTH]; 
 	char* password = getStringInput("Enter the password: "); // Read in password
 	SHA1((unsigned char *)password, strlen(password), (unsigned char *)passwordHash); // Hash the input
-	
-	printf("%s\n", password);
 	
 	// Check if hash matches
 	if (memcmp(passwordHash, HASH, sizeof(HASH)/sizeof(HASH[0])))
