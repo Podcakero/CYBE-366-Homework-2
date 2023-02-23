@@ -104,6 +104,7 @@ int main()
 		return 1;
 	}
 	printf("%s", password);
+	printf("%s", "THis is working");
 	password[strcspn(password, "\n")] = 0; // Remove new line from password
 	printf("%s", password);
 	SHA1(password, strlen(password), passwordHash);
